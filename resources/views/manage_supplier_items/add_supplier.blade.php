@@ -10,50 +10,52 @@
       <form id="addSupplierForm">
         {{csrf_field()}}
         <div class="modal-body">
-          <div class="form-group">
-            <label>Business Name</label>
-            <input type="text" name="business_name" class="form-control" placeholder="Business Name">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            <span class="text-danger">
-              <strong id="business_name-error"></strong>
-            </span>
-
-          </div>
-          <div class="form-group">
-            <label>Contact Person</label>
-            <input type="text" name="contact_person" class="form-control" placeholder="Contact Person">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            <span class="text-danger">
-              <strong id="contact_person-error"></strong>
-            </span>
-
-          </div>
-          <div class="form-group">
-            <label>Contact Number</label>
-            <input type="text" name="contact_no" class="form-control" placeholder="Contact Number">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            <span class="text-danger">
-              <strong id="contact_no-error"></strong>
-            </span>
-
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control" placeholder="Email">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            <span class="text-danger">
-              <strong id="email-error"></strong>
-            </span>
-
-          </div>
-          <div class="form-group">
-            <label>Business Address</label>
-            <input type="text" name="business_add" class="form-control" placeholder="Business Address">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            <span class="text-danger">
-              <strong id="business_add-error"></strong>
-            </span>
-          </div>
+          <table class="table table-bordered table-sm" id="myTablee">
+            <tr>
+              <th class="table2" style="width: 15%">
+                <p>Business Name</p>
+                <span class='glyphicon glyphicon-envelope form-control-feedback'></span>
+                <span class="text-danger">
+                  <strong id="business_name-error"></strong>
+                </span>
+              </th>
+              <th class="table2" style="width: 15%">
+                <p>Contact Person</p>
+                <span class='glyphicon glyphicon-envelope form-control-feedback'></span>
+                <span class="text-danger">
+                  <strong id="contact_person-error"></strong>
+                </span>
+              </th>
+              <th class="table2" style="width: 15%">
+                <p>Contact Number</p>
+                <span class='glyphicon glyphicon-envelope form-control-feedback'></span>
+                <span class="text-danger">
+                  <strong id="contact_no-error"></strong>
+                </span>
+              </th>
+              <th class="table2" style="width: 15%">
+                <p>Email</p>
+                <span class='glyphicon glyphicon-envelope form-control-feedback'></span>
+                <span class="text-danger">
+                  <strong id="email-error"></strong>
+                </span>
+              </th>
+              <th class="table2" style="width: 15%">
+                <p>Business Address</p>
+                <span class='glyphicon glyphicon-envelope form-control-feedback'></span>
+                <span class="text-danger">
+                  <strong id="business_add-error"></strong>
+                </span>
+              </th>
+              <th class="action_buttons" style="width:10%">
+                <button type='button' class="btn btn-success btn-block btn-sm" onclick='xx()'>
+                  <i class="fas fa-plus-square">Add Supplier</i>
+                </button>
+              </th>
+            </tr>
+            <tbody>
+            </tbody>
+          </table>
 
           <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
@@ -65,6 +67,37 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  // alert(data);
+  const xx = () => {
+    var table = document.getElementById("myTablee").getElementsByTagName('tbody')[0];
+    var row = table.insertRow();
+
+    function addoption() {
+      $('#addoption').append('<option value="${taskArray}">${taskArrayy}</option>');
+    }
+
+    let cell1 = row.insertCell(0);
+    let cell2 = row.insertCell(1);
+    let cell3 = row.insertCell(2);
+    let cell4 = row.insertCell(3);
+    let cell5 = row.insertCell(4);
+    let cell6 = row.insertCell(5);
+
+    cell1.innerHTML = "<p><input class='form-control request_table' type='text' name='business_name[]' autocomplete='off' ></p>";
+    cell2.innerHTML = "<p><input class='form-control request_table' type='text' name='contact_person[]' autocomplete='off' ></p>";
+    cell3.innerHTML = "<p><input class='form-control request_table' type='tel' name='contact_no[]' autocomplete='off' ></p>";
+    cell4.innerHTML = "<p><input class='form-control request_table' type='email' name='email[]' autocomplete='off' ></p>";
+    cell5.innerHTML = "<p><input class='form-control request_table' type='text' name='business_add[]' autocomplete='off' ></p>";
+    cell6.innerHTML = "<button type='button' class='btn btn-danger btn-block btn-sm' onclick='yy()'><i class='fa fa-trash'></i>Remove</button>";
+  }
+
+  const yy = () => {
+    var td = event.target.parentNode;
+    var tr = td.parentNode;
+    tr.parentNode.removeChild(tr);
+  }
+</script>
 <script type="text/javascript">
   $().ready(function() {
     $('#addSupplierForm').on('submit', function(e) {
@@ -79,6 +112,7 @@
           if (data.errors) {
             if (data.errors.business_name) {
               $('#business_name-error').html(data.errors.business_name[0]);
+              
             }
             if (data.errors.contact_person) {
               $('#contact_person-error').html(data.errors.contact_person[0]);
@@ -108,6 +142,14 @@
             }, 3000);
           }
         },
+        error: function(xhr, status, error) {
+          console.log(xhr.responseJSON.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Field is Required',
+          })
+        }
 
       });
     });

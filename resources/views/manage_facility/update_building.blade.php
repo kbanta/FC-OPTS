@@ -4,7 +4,7 @@
   <div role="document" class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 id="exampleModalLabel" class="modal-title">Edit Account</h5>
+        <h5 id="exampleModalLabel" class="modal-title">Edit Building</h5>
         <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
       </div>
       <div class="modal-body">

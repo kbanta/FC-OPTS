@@ -16,10 +16,13 @@ class CreateCanvassItemsTable extends Migration
         Schema::create('canvass_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('canvass_no')->references('canvass_no')->on('canvasses')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('item_id')->references('id')->on('items')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->string('supplier')->nullable();
-            $table->float('offered_price')->nullable();
+            $table->foreignId('item_id')->nullable()->references('id')->on('items')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            // $table->string('supplier')->nullable();
+            $table->integer('quantity')->nullable();
+            // $table->float('offered_price')->nullable();
             $table->string('selected')->nullable();
+            $table->integer('supplier_items_id')->nullable();
+            $table->string('payment_term')->nullable();
             $table->timestamps();
         });
     }

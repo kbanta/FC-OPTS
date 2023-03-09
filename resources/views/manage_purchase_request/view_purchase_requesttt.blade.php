@@ -22,13 +22,22 @@
     <div class="card">
         <div class="forbes-logo-col" style="width:100%; height:auto">
             <section class="mt-5 pl-4">
-                @if(!empty($output[0]['action']))
+                <!-- @if(!empty($output[0]['action']))
                 <span class="badge badge-danger" style="font-size: 20px; float:right;">{{ $output[0]['action'] }}</span>
-                @endif
+                @endif -->
+                <div style="float: right;">
+                    @if(Auth::user()->hasRole('Requestor'))
+                    <a href="{{route('req_pr_track',$pr_no = $output[0]['pr_no'] )}}" class="btn btn-danger btn-sm view_btn"><i class="fa fa-eye"></i> Track Request</a>
+                    @elseif(Auth::user()->hasRole('Processor'))
+                    <a href="{{route('pro_pr_track',$pr_no = $output[0]['pr_no'] )}}" class="btn btn-danger btn-sm view_btn"><i class="fa fa-eye"></i> Track Request</a>
+                    @elseif(Auth::user()->hasRole('Validator'))
+                    <a href="{{route('val_pr_track',$pr_no = $output[0]['pr_no'] )}}" class="btn btn-danger btn-sm view_btn"><i class="fa fa-eye"></i> Track Request</a>
+                    @endif
+                </div>
                 <div class="row d-flex">
                     <div class="row">
                         <div class="col-12 col-sm-auto mb-3">
-                            <div class="mx-auto" style="width: 140px;">
+                            <div class="mx-auto" style="width: 100px;">
                                 <div class="d-flex justify-content-center align-items-center rounded">
                                     <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;"> <img src="{{ asset('dist/img/forbeslogo.png')}}" alt="person" class="img-fluid "> </span>
                                 </div>
@@ -36,9 +45,8 @@
                         </div>
                         <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                             <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                <br>
                                 <h4 class="pt-sm-2 pb-0 mb-0 text-nowrap">Forbes College Inc.</h4>
-                                <p class="mb-0">E. Aquende Bldg. III Rizal cor. Elizondo Sts. Legazpi City</p>
+                                <p class="mb-0">E. Aquende Bldg. III Rizal Corner Elizondo St. Legazpi City</p>
                                 <div class="text-muted"><small>4500, Philippines</small></div>
                             </div>
                         </div>
@@ -49,30 +57,24 @@
                 {{csrf_field()}}
                 {{method_field('PUT')}}
                 <section class="p-2">
-                    <span class="badge badge-success" style="font-size: 20px;">Purchase Requisiton Form</span>
-                    <div class="custom-control custom-checkbox">
+                    <!-- <span class="badge badge-success" style="font-size: 20px;">Purchase Requisiton Form</span> -->
+                    <!-- <span class="" style="font-size: 22px;"> </span> -->
+                    <h4 class="pt-sm-2 pb-0 mb-0 text-nowrap"><b>Purchase Requisiton Form </b></h4>
+                    <div>
+                        Building:
                         @if(!empty($output[0]['Building_name']))
-                        <input type="checkbox" class="custom-control-input" checked>
-                        <label class="custom-control-label" for="building">{{ $output[0]['Building_name'] }}
-                            @endif
+                        <input type="hidden" id="email" name="email" value="{{ $user_email[0]['email'] }}">
+                        <span>{{ $output[0]['Building_name'] }}</span>
+                        @endif
                     </div>
                     <table class="table table-bordered table-sm">
                         <tbody>
                             <tr>
                                 <td colspan="2">
                                     Type of Requisition:
-                                    <!-- Default inline 1-->
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        @if(!empty($output[0]['type']))
-                                        <input type="radio" class="custom-control-input" checked>
-                                        <label class="custom-control-label" for="type_of_req1">{{$output[0]['type']}}</labe>
-                                            @endif
-
-                                    </div>
-                                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                                    <span class="text-danger">
-                                        <strong id="type_of_req-error"></strong>
-                                    </span>
+                                    @if(!empty($output[0]['type']))
+                                    <span>{{$output[0]['type']}}</span>
+                                    @endif
                                 </td>
                                 <td>
                                     PR number:
@@ -100,9 +102,9 @@
                             <tr>
                                 <td colspan="4">
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea2">Purpose of Requisition</label>
+                                        <span>Purpose of Requisition</span>
                                         @if(!empty($output[0]['purpose']))
-                                        <textarea class="form-control rounded-0" rows="3" readonly>{{$output[0]['purpose']}}</textarea>
+                                        <textarea class="form-control rounded-0" rows="3" style="overflow:auto;resize:none" readonly>{{$output[0]['purpose']}}</textarea>
                                         @endif
                                     </div>
                                 </td>
@@ -112,7 +114,7 @@
                     <table class="table table-bordered table-sm">
                         <thead>
                             <tr>
-                                <th>Beggining</th>
+                                <th>Beginning</th>
                                 <th>Ending</th>
                                 <th>Unit</th>
                                 <th>Quantity</th>
@@ -124,20 +126,55 @@
                             <tr>
                                 @if(!empty($output))
                                 @foreach($output as $outputs)
+                                <td style="display: none;" class="">{{$outputs['id']}}</td>
+                                <td style="display: none;" class="">{{$outputs['pr_no']}}</td>
                                 <td class="pr_beggining">{{$outputs['beggining']}}</td>
                                 <td class="pr_ending">{{$outputs['ending']}}</td>
                                 <td class="pr_unit">{{$outputs['unit']}}</td>
                                 <td class="pr_quantity">{{$outputs['quantity']}}</td>
                                 <td class="pr_itemdesc">{{$outputs['item_desc']}}</td>
+                                @if(Auth::user()->hasRole('Approver'))
+                                @yield('check_verify_items')
+                                <td class="text-center">
+                                    @if(!empty($outputs['item_id']))
+                                    <i style="color: green;" class="fa fa-check"></i>
+                                    @elseif($outputs['item_id'] == '0')
+                                    <i style="color: red;" class="fa fa-times"></i>
+                                    @else
+                                    <div class="btn btn-group">
+                                        <a href="#" class="btn btn-success  btn-sm update_btn"><i class=""></i>Check</a>
+                                        <a href="#" class="btn btn-danger  btn-sm denyitem_btn"><i class=""></i> Deny</a>
+                                    </div>
+                                    @endif
+                                </td>
+                                @if($output[0]['action'] == 'For Canvassing' and $user->position == 'ASSD Manager')
+                                <td>
+                                    <a href="#" class="btn btn-success btn-block btn-sm update_btn"><i class="fa fa-eye"></i> Check item</a>
+                                    @else
+                                </td>
+                                @endif
+                                @else
+                                <td class="text-center">
+                                    @if(!empty($outputs['item_id']))
+                                    <i style="color: green;" class="fa fa-check"></i>
+                                    @endif
+                                    @if($output[0]['action'] == 'Verifying' or $output[0]['action'] == 'Checked' or $output[0]['action'] == 'Approved')
+                                    @if($outputs['item_id'] == 0)
+                                    <i style="color: red;" class="fa fa-times"></i>
+                                    @endif
+                                    @endif
+                                </td>
+                                @endif
                             <tr>
                             </tr>
                             @endforeach
+
                             @endif
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td class="request_bottom" colspan="5">
+                                <td class="request_bottom text-center" colspan="6">
                                     <p>*****nothing follows*****</p>
                                 </td>
                             </tr>

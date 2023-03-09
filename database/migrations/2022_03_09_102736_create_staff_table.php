@@ -15,19 +15,18 @@ class CreateStaffTable extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->string('id');
-            $table->string('fname');
-            $table->string('mname');
-            $table->string('lname');
-            $table->string('sex');
-            $table->string('contact_no');
-            $table->string('barangay');
-            $table->string('municipality');
-            $table->string('city');
-            $table->string('province');
-            $table->string('zipcode');
-            $table->string('position');
-            $table->foreignId('department_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->string('fname')->nullable();
+            $table->string('mname')->nullable();
+            $table->string('lname')->nullable();
+            $table->string('sex')->nullable();
+            $table->string('contact_no')->nullable();
+            $table->string('barangay')->nullable();
+            $table->string('municipality')->nullable();
+            $table->string('city')->nullable();
+            $table->string('province')->nullable();
+            $table->integer('zipcode')->nullable();
+            $table->foreignId('department_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

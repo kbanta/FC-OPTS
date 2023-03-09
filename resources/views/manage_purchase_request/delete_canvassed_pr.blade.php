@@ -15,7 +15,7 @@
             //   alert(id);
 
             Swal.fire({
-                title: 'Are you sure?',
+                title: 'Remove?',
                 text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,

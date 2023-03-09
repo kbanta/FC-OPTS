@@ -1,18 +1,10 @@
 <script type="text/javascript">
   $().ready(function() {
-    $('.deletebtn').on('click', function(e) {
-      $tr = $(this).closest('tr');
-
-      var data = $tr.children("td").map(function() {
-        return $(this).text();
-      }).get();
-
-      console.log(data);
-
-      $('#delete_id').val(data[0]);
+    // $('#example').DataTable();
+    $('body').on('click', '.deletebtn', function(e) {
+      var id = $(this).data("id");
       e.preventDefault();
-      var id = $("#delete_id").val();
-      //alert(id);
+      // alert(id);
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -34,16 +26,16 @@
             success: function(response) {
               console.log(response);
               Swal.fire({
-              icon: 'success',
-              title: 'Data Have been deleted!',
-              showConfirmButton: false,
-              timer: 3500
-            });
+                icon: 'success',
+                title: 'Data Have been deleted!',
+                showConfirmButton: false,
+                timer: 3500
+              });
             }
           });
           setTimeout(function() {
-              location.reload();
-            }, 3000);
+            location.reload();
+          }, 3000);
         }
       });
     });

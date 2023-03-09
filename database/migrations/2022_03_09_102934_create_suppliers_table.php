@@ -20,6 +20,7 @@ class CreateSuppliersTable extends Migration
             $table->string('contact_no');
             $table->string('email');
             $table->string('business_add');
+            $table->string('isActive')->nullable();
             $table->timestamps();
         });
     }

@@ -23,75 +23,71 @@
 				<div class="card-body">
 					<div class="account-settings">
 						<div class="user-profile">
-                            @if(Auth::user()->hasRole('Administrator'))
+							@if(Auth::user()->hasRole('Administrator'))
 							<div class="user-avatar">
 								<img class="admin-profile_pic" src="{{ Auth::user()->picture }} " alt="Maxwell Admin">
 							</div>
-                            <div class="mt-2">
-                                <input type="file" name="admin-profile_pic" id="admin-profile_pic" style="opacity: 0;height:1px;display:none">
-                                <a href="#" class="btn btn-primary" id="change_pro_pic">
-                                    <i class="fa fa-fw fa-camera"></i>
-                                    <span>Change Photo</span>
-                                </a>
-                            </div>
-                            @endif
-                            @if(Auth::user()->hasRole('Requestor'))
+							<div class="mt-2">
+								<input type="file" name="admin-profile_pic" id="admin-profile_pic" style="opacity: 0;height:1px;display:none">
+								<a href="#" class="btn btn-primary" id="change_pro_pic">
+									<i class="fa fa-fw fa-camera"></i>
+									<span>Change Photo</span>
+								</a>
+							</div>
+							@endif
+							@if(Auth::user()->hasRole('Requestor'))
 							<div class="user-avatar">
 								<img class="requestor-profile_pic" src="{{ Auth::user()->picture }} " alt="Maxwell Admin">
 							</div>
-                            <div class="mt-2">
-                                <input type="file" name="requestor-profile_pic" id="requestor-profile_pic" style="opacity: 0;height:1px;display:none">
-                                <a href="#" class="btn btn-primary" id="change_pro_pic">
-                                    <i class="fa fa-fw fa-camera"></i>
-                                    <span>Change Photo</span>
-                                </a>
-                            </div>
-                            @endif
-                            @if(Auth::user()->hasRole('Validator'))
+							<div class="mt-2">
+								<input type="file" name="requestor-profile_pic" id="requestor-profile_pic" style="opacity: 0;height:1px;display:none">
+								<a href="#" class="btn btn-primary" id="change_pro_pic">
+									<i class="fa fa-fw fa-camera"></i>
+									<span>Change Photo</span>
+								</a>
+							</div>
+							@endif
+							@if(Auth::user()->hasRole('Validator'))
 							<div class="user-avatar">
 								<img class="validator-profile_pic" src="{{ Auth::user()->picture }} " alt="Maxwell Admin">
 							</div>
-                            <div class="mt-2">
-                                <input type="file" name="validator-profile_pic" id="validator-profile_pic" style="opacity: 0;height:1px;display:none">
-                                <a href="#" class="btn btn-primary" id="change_pro_pic">
-                                    <i class="fa fa-fw fa-camera"></i>
-                                    <span>Change Photo</span>
-                                </a>
-                            </div>
-                            @endif
-                            @if(Auth::user()->hasRole('Approver'))
+							<div class="mt-2">
+								<input type="file" name="validator-profile_pic" id="validator-profile_pic" style="opacity: 0;height:1px;display:none">
+								<a href="#" class="btn btn-primary" id="change_pro_pic">
+									<i class="fa fa-fw fa-camera"></i>
+									<span>Change Photo</span>
+								</a>
+							</div>
+							@endif
+							@if(Auth::user()->hasRole('Approver'))
 							<div class="user-avatar">
 								<img class="approver-profile_pic" src="{{ Auth::user()->picture }} " alt="Maxwell Admin">
 							</div>
-                            <div class="mt-2">
-                                <input type="file" name="approver-profile_pic" id="approver-profile_pic" style="opacity: 0;height:1px;display:none">
-                                <a href="#" class="btn btn-primary" id="change_pro_pic">
-                                    <i class="fa fa-fw fa-camera"></i>
-                                    <span>Change Photo</span>
-                                </a>
-                            </div>
-                            @endif
-                            @if(Auth::user()->hasRole('Processor'))
+							<div class="mt-2">
+								<input type="file" name="approver-profile_pic" id="approver-profile_pic" style="opacity: 0;height:1px;display:none">
+								<a href="#" class="btn btn-primary" id="change_pro_pic">
+									<i class="fa fa-fw fa-camera"></i>
+									<span>Change Photo</span>
+								</a>
+							</div>
+							@endif
+							@if(Auth::user()->hasRole('Processor'))
 							<div class="user-avatar">
 								<img class="processor-profile_pic" src="{{ Auth::user()->picture }} " alt="Maxwell Admin">
 							</div>
-                            <div class="mt-2">
-                                <input type="file" name="processor-profile_pic" id="processor-profile_pic" style="opacity: 0;height:1px;display:none">
-                                <a href="#" class="btn btn-primary" id="change_pro_pic">
-                                    <i class="fa fa-fw fa-camera"></i>
-                                    <span>Change Photo</span>
-                                </a>
-                            </div>
-                            @endif
+							<div class="mt-2">
+								<input type="file" name="processor-profile_pic" id="processor-profile_pic" style="opacity: 0;height:1px;display:none">
+								<a href="#" class="btn btn-primary" id="change_pro_pic">
+									<i class="fa fa-fw fa-camera"></i>
+									<span>Change Photo</span>
+								</a>
+							</div>
+							@endif
 							<br>
 							<h5 class="user-name">{{Auth::user()->name }}</h5>
 							<h6 class="user-email">{{Auth::user()->email }}</h6>
 							<h6 class="user-email">{{Auth::user()->id }}</h6>
 
-						</div>
-						<div class="about">
-							<h5>About</h5>
-							<p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
 						</div>
 					</div>
 				</div>
@@ -104,8 +100,8 @@
 						<div class="row gutters">
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 								<div class="text-right">
-									<button type="button" id="submit" name="submit" class="btn btn-success update_edit_btn"><i class="fa fa-edit">Edit Personal Details</i></button>
-									<button type="button" id="submit" name="submit" class="btn btn-success update_account_btn"><i class="fas fa-eye-slash">Edit Password</i></button>
+									<button type="button" id="submit" name="submit" class="btn btn-success update_edit_btn"><i class="fa fa-edit"> Edit Personal Details</i></button>
+									<button type="button" id="submit" name="submit" class="btn btn-success update_account_btn"><i class="fas fa-key"> Edit Password</i></button>
 								</div>
 							</div>
 						</div>
@@ -153,9 +149,19 @@
 								<div class="form-group">
 									<label for="contact_no">Contact Number</label>
 									@if(empty($userr->contact_no))
-									<input type="text" class="form-control" name="contact_no" id="contact_no" value="--" readonly>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="inputGroup-sizing-default">+63</span>
+										</div>
+										<input type="text" class="form-control" name="contact_no" id="contact_no" value="--" readonly>
+									</div>
 									@else
-									<input type="text" class="form-control" name="contact_no" id="contact_no" value="{{$userr->contact_no}}" readonly>
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="inputGroup-sizing-default">+63</span>
+										</div>
+										<input type="text" class="form-control" name="contact_no" id="contact_no" value="{{$userr->contact_no}}" readonly>
+									</div>
 									@endif
 								</div>
 							</div>
@@ -241,11 +247,7 @@
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
 								<div class="form-group">
 									<label for="position">Position</label>
-									@if(empty($userr->position))
-									<input type="text" class="form-control" name="position" id="position" value="--" readonly>
-									@else
-									<input type="text" class="form-control" name="position" id="position" value="{{$userr->position}}" readonly>
-									@endif
+									<input type="text" class="form-control" name="position" id="position" value="{{Auth::user()->position}}" readonly>
 								</div>
 							</div>
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
@@ -262,21 +264,23 @@
 							</div>
 						</div>
 						@if(Auth::user()->hasRole('Administrator'))
-							<input type="hidden" name="role" id="role" value="Administrator">
+						<input type="hidden" name="role" id="role" value="Administrator">
 						@endif
 						@if(Auth::user()->hasRole('Requestor'))
-							<input type="hidden" name="role" id="role" value="Requestor">
+						<input type="hidden" name="role" id="role" value="Requestor">
 						@endif
 						@if(Auth::user()->hasRole('Validator'))
-							<input type="hidden" name="role" id="role" value="Validator">
+						<input type="hidden" name="role" id="role" value="Validator">
 						@endif
 						@if(Auth::user()->hasRole('Approver'))
-							<input type="hidden" name="role" id="role" value="Approver">
+						<input type="hidden" name="role" id="role" value="Approver">
 						@endif
 						@if(Auth::user()->hasRole('Processor'))
-							<input type="hidden" name="role" id="role" value="Processor">
+						<input type="hidden" name="role" id="role" value="Processor">
 						@endif
-
+						@if(Auth::user()->hasRole('CorporateTreasurer'))
+						<input type="hidden" name="role" id="role" value="CorporateTreasurer">
+						@endif
 					</div>
 				</form>
 			</div>
@@ -286,122 +290,122 @@
 @include('manage_profile.update_profile')
 @include('manage_profile.update_account')
 <script type="text/javascript">
-    $(document).on('click','#change_pro_pic', function(){
-      $('#admin-profile_pic').click();
-	  $('#requestor-profile_pic').click();
-	  $('#approver-profile_pic').click();
-	  $('#validator-profile_pic').click();
-	  $('#processor-profile_pic').click();
-	  var role = $('#role').val();
-	  console.log(role);
+	$(document).on('click', '#change_pro_pic', function() {
+		$('#admin-profile_pic').click();
+		$('#requestor-profile_pic').click();
+		$('#approver-profile_pic').click();
+		$('#validator-profile_pic').click();
+		$('#processor-profile_pic').click();
+		var role = $('#role').val();
+		console.log(role);
 
-	//   alert(role); 
-    });
+		//   alert(role); 
+	});
 	$('#admin-profile_pic').ijaboCropTool({
-          preview : '.admin-profile_pic',
-          setRatio:1,
-          allowedExtensions: ['jpg', 'jpeg','png'],
-          buttonsText:['CROP','QUIT'],
-          buttonsColor:['#30bf7d','#ee5155', -15],
-		  processUrl:'{{ route("adminProfilePic") }}',
-          withCSRF:['_token','{{ csrf_token() }}'],
-          onSuccess:function(message, element, status){
-            //  alert(message);
-			 Swal.fire({
-            icon: 'success',
-            title: message,
-            showConfirmButton: false,
-            timer: 3500
-          });
-          },
-          onError:function(message, element, status){
-            alert(message);
-          }
-       });
-	   $('#requestor-profile_pic').ijaboCropTool({
-          preview : '.requestor-profile_pic',
-          setRatio:1,
-          allowedExtensions: ['jpg', 'jpeg','png'],
-          buttonsText:['CROP','QUIT'],
-          buttonsColor:['#30bf7d','#ee5155', -15],
-		  processUrl:'{{ route("requestorProfilePic") }}',
-          withCSRF:['_token','{{ csrf_token() }}'],
-          onSuccess:function(message, element, status){
-            //  alert(message);
-			 Swal.fire({
-            icon: 'success',
-            title: message,
-            showConfirmButton: false,
-            timer: 3500
-          });
-          },
-          onError:function(message, element, status){
-            alert(message);
-          }
-       });
-	   $('#validtor-profile_pic').ijaboCropTool({
-          preview : '.validtor-profile_pic',
-          setRatio:1,
-          allowedExtensions: ['jpg', 'jpeg','png'],
-          buttonsText:['CROP','QUIT'],
-          buttonsColor:['#30bf7d','#ee5155', -15],
-		  processUrl:'{{ route("validatorProfilePic") }}',
-          withCSRF:['_token','{{ csrf_token() }}'],
-          onSuccess:function(message, element, status){
-            //  alert(message);
-			 Swal.fire({
-            icon: 'success',
-            title: message,
-            showConfirmButton: false,
-            timer: 3500
-          });
-          },
-          onError:function(message, element, status){
-            alert(message);
-          }
-       });
-	   $('#approver-profile_pic').ijaboCropTool({
-          preview : '.approver-profile_pic',
-          setRatio:1,
-          allowedExtensions: ['jpg', 'jpeg','png'],
-          buttonsText:['CROP','QUIT'],
-          buttonsColor:['#30bf7d','#ee5155', -15],
-		  processUrl:'{{ route("approverProfilePic") }}',
-          withCSRF:['_token','{{ csrf_token() }}'],
-          onSuccess:function(message, element, status){
-            //  alert(message);
-			 Swal.fire({
-            icon: 'success',
-            title: message,
-            showConfirmButton: false,
-            timer: 3500
-          });
-          },
-          onError:function(message, element, status){
-            alert(message);
-          }
-       });
-	   $('#processor-profile_pic').ijaboCropTool({
-          preview : '.processor-profile_pic',
-          setRatio:1,
-          allowedExtensions: ['jpg', 'jpeg','png'],
-          buttonsText:['CROP','QUIT'],
-          buttonsColor:['#30bf7d','#ee5155', -15],
-		  processUrl:'{{ route("processorProfilePic") }}',
-          withCSRF:['_token','{{ csrf_token() }}'],
-          onSuccess:function(message, element, status){
-            //  alert(message);
-			 Swal.fire({
-            icon: 'success',
-            title: message,
-            showConfirmButton: false,
-            timer: 3500
-          });
-          },
-          onError:function(message, element, status){
-            alert(message);
-          }
-       });
+		preview: '.admin-profile_pic',
+		setRatio: 1,
+		allowedExtensions: ['jpg', 'jpeg', 'png'],
+		buttonsText: ['CROP', 'QUIT'],
+		buttonsColor: ['#30bf7d', '#ee5155', -15],
+		processUrl: '{{ route("adminProfilePic") }}',
+		withCSRF: ['_token', '{{ csrf_token() }}'],
+		onSuccess: function(message, element, status) {
+			//  alert(message);
+			Swal.fire({
+				icon: 'success',
+				title: message,
+				showConfirmButton: false,
+				timer: 3500
+			});
+		},
+		onError: function(message, element, status) {
+			alert(message);
+		}
+	});
+	$('#requestor-profile_pic').ijaboCropTool({
+		preview: '.requestor-profile_pic',
+		setRatio: 1,
+		allowedExtensions: ['jpg', 'jpeg', 'png'],
+		buttonsText: ['CROP', 'QUIT'],
+		buttonsColor: ['#30bf7d', '#ee5155', -15],
+		processUrl: '{{ route("requestorProfilePic") }}',
+		withCSRF: ['_token', '{{ csrf_token() }}'],
+		onSuccess: function(message, element, status) {
+			//  alert(message);
+			Swal.fire({
+				icon: 'success',
+				title: message,
+				showConfirmButton: false,
+				timer: 3500
+			});
+		},
+		onError: function(message, element, status) {
+			alert(message);
+		}
+	});
+	$('#validator-profile_pic').ijaboCropTool({
+		preview: '.validator-profile_pic',
+		setRatio: 1,
+		allowedExtensions: ['jpg', 'jpeg', 'png'],
+		buttonsText: ['CROP', 'QUIT'],
+		buttonsColor: ['#30bf7d', '#ee5155', -15],
+		processUrl: '{{ route("validatorProfilePic") }}',
+		withCSRF: ['_token', '{{ csrf_token() }}'],
+		onSuccess: function(message, element, status) {
+			//  alert(message);
+			Swal.fire({
+				icon: 'success',
+				title: message,
+				showConfirmButton: false,
+				timer: 3500
+			});
+		},
+		onError: function(message, element, status) {
+			alert(message);
+		}
+	});
+	$('#approver-profile_pic').ijaboCropTool({
+		preview: '.approver-profile_pic',
+		setRatio: 1,
+		allowedExtensions: ['jpg', 'jpeg', 'png'],
+		buttonsText: ['CROP', 'QUIT'],
+		buttonsColor: ['#30bf7d', '#ee5155', -15],
+		processUrl: '{{ route("approverProfilePic") }}',
+		withCSRF: ['_token', '{{ csrf_token() }}'],
+		onSuccess: function(message, element, status) {
+			//  alert(message);
+			Swal.fire({
+				icon: 'success',
+				title: message,
+				showConfirmButton: false,
+				timer: 3500
+			});
+		},
+		onError: function(message, element, status) {
+			alert(message);
+		}
+	});
+	$('#processor-profile_pic').ijaboCropTool({
+		preview: '.processor-profile_pic',
+		setRatio: 1,
+		allowedExtensions: ['jpg', 'jpeg', 'png'],
+		buttonsText: ['CROP', 'QUIT'],
+		buttonsColor: ['#30bf7d', '#ee5155', -15],
+		processUrl: '{{ route("processorProfilePic") }}',
+		withCSRF: ['_token', '{{ csrf_token() }}'],
+		onSuccess: function(message, element, status) {
+			//  alert(message);
+			Swal.fire({
+				icon: 'success',
+				title: message,
+				showConfirmButton: false,
+				timer: 3500
+			});
+		},
+		onError: function(message, element, status) {
+			alert(message);
+		}
+	});
 </script>
 @endsection
 

@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<br>
+<br>
+<br>
+<br>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -29,7 +33,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-successs">
                                     {{ __('Confirm Password') }}
                                 </button>
 
@@ -46,4 +50,25 @@
         </div>
     </div>
 </div>
+<style>
+    .card {
+        background-color: #1e2833;
+        /* box-shadow: 0 0px 10px 0px #f9d002;
+         */
+        /* box-shadow: 0 0px 10px -2px #f9d002; */
+    }
+
+    .card-body {
+        background-color: #43484e;
+    }
+
+
+    .card-header {
+        color: white;
+    }
+
+    .col-form-label {
+        color: white;
+    }
+</style>
 @endsection

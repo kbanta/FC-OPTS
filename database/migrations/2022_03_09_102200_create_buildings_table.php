@@ -17,6 +17,7 @@ class CreateBuildingsTable extends Migration
             $table->id();
             $table->string('Building_name');
             $table->string('Address');
+            $table->string('is_active');
             $table->timestamps();
         });
     }

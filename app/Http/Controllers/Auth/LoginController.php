@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\CssSelector\Node\ElementNode;
+
 class LoginController extends Controller
 {
     /*
@@ -37,22 +40,47 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    protected function authenticated(request $request,$user){
-        if($user->hasRole('Administrator')){
+    protected function authenticated(request $request, $user)
+    {
+
+        $errors = [$this->username() => trans('auth.failed')];
+        $username = $this->username();
+        $credentials = request()->only($username, 'password');
+        // dd($credentials);
+        if ((auth()->user()->position != strtolower($credentials[$username])) && $credentials[$username] != strtolower($credentials[$username])) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('login')->with('error', 'invalid credentials!');
+        } else {
+        }
+        if ($user->hasRole('Administrator')) {
             return redirect()->route('admindashboard');
         }
-        if($user->hasRole('Processor')){
+        if ($user->hasRole('Processor')) {
             return redirect()->route('processordashboard');
         }
 
-        if($user->hasRole(['Validator'])){
+        if ($user->hasRole(['Validator'])) {
             return redirect()->route('validatordashboard');
         }
-        if($user->hasRole(['Approver'])){
+        if ($user->hasRole(['Approver'])) {
             return redirect()->route('approverdashboard');
         }
-        if($user->hasRole(['Requestor'])){
+        if ($user->hasRole('Requestor')) {
             return redirect()->route('requestordashboard');
         }
+        // return $credentials;
+
+        // dd($request->all());
+
+
+
+        // if(Auth::attempt(['email'=>$this->username(),'password'=>$request->password,'isActive'=>1]))
+
+        // if($user->hasRole(['CorporateTreasurer'])){
+        //     return redirect()->route('corporatetreasurerdashboard');
+        // }
     }
 }

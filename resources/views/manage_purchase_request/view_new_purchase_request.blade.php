@@ -1,58 +1,62 @@
 @extends('manage_purchase_request.view_purchase_requestt')
 
-@section('verify_item_btn')
-<!-- <div class="col-lg-12">
-    <div class="card">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <button type="button" class="btn btn-success" value="Show/Hide" onClick="showHideDiv('divMsg')">Check Item</button>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item active">Check Item Description</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="divMsg" style="display: none;">
-            <section class="p-2">
-                <form id="viewPRForm">
-                    {{csrf_field()}}
-                    {{method_field('POST')}}
-                    <table id="example" class="table table-bordered table-sm">
-                        <thead>
-                            <tr>
-                                <th class="text-center">Select</th>
-                                <th class="text-center">Item Desc</th>
-                            </tr>
-                        </thead>
-                        </tr>
-                        <tbody>
-                            @foreach($item_outputs as $item)
-                            <tr>
-                                <td>
-                                    <center><input type="checkbox" class="custom-control custom-checkbox check" name="item_id[]" value="{{$item['id']}}" /></center>
-                                </td>
-                                <td class="text-center"><input type="hidden" name="item[]" value="{{$item['item_desc']}}" />{{$item['item_desc']}}</td>                            <tr>
-                            </tr>
-                            @endforeach
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                        </tfoot>
-                    </table> -->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Submit Canvass</button>
-                    </div>
-            <!-- </section>
-            </form>
-        </div>
-    </div>
-</div> -->
+@section('check_verify')
+@if(Auth::user()->hasRole('Approver'))
 
+@endif
+@endsection
+
+@section('check_verify_items')
+@if($user->position=="Corporate Treasurer")
+
+@else
+
+@endif
+@include('manage_purchase_request.check_verify_item')
+@endsection
+
+@section('deny_message')
+@if(!empty($deny[0]['deny_message']))
+<div class="form-group">
+    <label for="comment"><span class="badge badge-danger" style="font-size: 15px;">Denied Message:</span></label>
+    <textarea class="form-control" id="comment" style="overflow:auto;resize:none" readonly>{{$deny[0]['deny_message']}}</textarea>
+</div>
+@else
+@endif
+@endsection
+
+@section('verify_item_btn')
+@if(Auth::user()->hasRole('Approver'))
+@if($output[0]['action'] == 'For Canvassing')
+@else
+@if(!empty($deny[0]['deny_message']))
+<div class="modal-footer">
+    <div class="btn-group">
+        <button type="submit" class="btn btn-success" id="submit-btn">Submit for Canvass</button>
+    </div>
+</div>
+@else
+<div class="modal-footer">
+    <div class="btn-group">
+        @if($chk_item==null)
+        <!-- <a data-toggle="modal" data-target="#denyMessage" class="btn btn-danger" href="">Deny</a>
+        <button type="submit" class="btn btn-success">Submit for Canvass</button> -->
+        @else
+        <!-- <div class="modal-footer"> -->
+        <div class="btn-group">
+            <a data-toggle="modal" data-target="#denyMessage" class="btn btn-danger" href="">Deny</a>
+            <button type="submit" class="btn btn-success" id="submit-btn">Submit for Canvass</button>
+        </div>
+        <!-- </div> -->
+        @endif
+    </div>
+</div>
+@endif
+
+@endif
+@else
+@endif
+@include('manage_purchase_request.deny_message')
 <script type="text/javascript">
     $().ready(function() {
         $.ajaxSetup({
@@ -63,7 +67,7 @@
         $('#viewPRForm').on('submit', function(e) {
             e.preventDefault();
             Swal.fire({
-                title: 'Are you sure?',
+                title: 'Send for Canvass?',
                 text: "You won't be able to revert this!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -100,6 +104,7 @@
 
             });
         });
+
     });
 
     function showHideDiv(ele) {

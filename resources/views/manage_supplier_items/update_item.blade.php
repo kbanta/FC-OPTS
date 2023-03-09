@@ -23,7 +23,7 @@
               <strong id="up_item_desc-error"></strong>
             </span>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label>Brand</label>
               <input type="text" name="up_brand" id="up_brand" class="form-control">
               <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -59,7 +59,7 @@
             <span class="text-danger">
               <strong id="up_supplier_id-error"></strong>
             </span>
-          </div>
+          </div> -->
            <div class="modal-footer">
                <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
                <button type="submit" class="btn btn-primary ">Save changes</button>

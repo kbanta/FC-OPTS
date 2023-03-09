@@ -44,14 +44,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function getPictureAttribute($value){
-        if($value){
-            return asset('user/'.$value);
-        }else{
+    public function getPictureAttribute($value)
+    {
+        if ($value) {
+            return asset('user/' . $value);
+        } else {
             return asset('user/no-pic.png');
         }
     }
-    public function purchaserequest(){
+    public function purchaserequest()
+    {
         return $this->hasMany(PurchaseRequest::class);
+    }
+    public function getEmailAttribute($value) {
+        return strtolower($value);
     }
 }

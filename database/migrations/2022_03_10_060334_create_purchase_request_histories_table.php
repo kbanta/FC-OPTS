@@ -23,6 +23,10 @@ class CreatePurchaseRequestHistoriesTable extends Migration
             $table->string('dateCheckfund')->nullable();
             $table->string('isApproved')->nullable();
             $table->string('dateApproved')->nullable();
+            $table->string('isApproved2')->nullable();
+            $table->string('dateApproved2')->nullable();
+            $table->integer('isHold')->nullable();
+            $table->string('dateHold')->nullable();
             $table->timestamps();
         });
     }

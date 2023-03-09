@@ -34,7 +34,7 @@
             <label>new-Password</label>
             <input type="password" name="newpassword" id="newpassword" class="form-control">
           </div> -->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="urole">Update Role:</label>
             <select id="urole_id" name="urole_id" class="form-control">
               <option value="" disabled selected>Select Role</option>
@@ -42,8 +42,40 @@
               <option value="{{$role->id}}">{{$role->display_name}}</option>
               @endforeach
             </select>
+          </div> -->
+          <div class="form-group">
+            <label for="isActive">Status:</label>
+            <select id="isActive" name="isActive" class="form-control">
+              <!-- <option value="" disabled selected>Select Status</option> -->
+              <option value="1">Activate</option>
+              <option value="2">Deactivate</option>
+            </select>
           </div>
-
+          <div class="form-group">
+            <label for="position">Position</label>
+            <select name="position" id="position" class="form-control">
+              <!-- <option value="" disabled selected></option> -->
+              <option value="Department Head">Department Head</option>
+              <option value="Procurement Officer">Procurement Officer</option>
+              <option value="ASSD Manager">ASSD Manager</option>
+              <option value="Finance Head">Finance Head</option>
+              <option value="Corporate Treasurer">Corporate Treasurer</option>
+              <option value="Chief Executive Officer">Chief Executive Officer</option>
+              <option value="Administrator">Administrator</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="dept_id">Department:</label>
+            <select name="dept_id" id="dept_id" class="dept_id form-control">
+              <!-- <option value="" disabled selected>Select Department</option> -->
+              @foreach($department as $dept)
+              <option value="{{$dept->id}}">{{$dept->Dept_name}}</option>
+              @endforeach
+            </select>
+            <span class="text-danger">
+              <strong id="dept_id-error"></strong>
+            </span>
+          </div>
           <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
             <button type="submit" class="btn btn-primary ">Save changes</button>
@@ -71,6 +103,24 @@
       $('#name').val(data[1]);
       $('#email').val(data[2]);
       $('#urole').val(data[4]);
+      $('#position option').each(function() {
+        if ($(this).text() == data[4]) {
+          $(this).prop('selected', true);
+          return false;
+        }
+      });
+      $('#dept_id option').each(function() {
+        if ($(this).text() == data[5]) {
+          $(this).prop('selected', true);
+          return false;
+        }
+      });
+      $('#isActive option').each(function() {
+        if ($(this).text() == data[6]) {
+          $(this).prop('selected', true);
+          return false;
+        }
+      });
     });
   });
 </script>
@@ -81,34 +131,43 @@
 
       e.preventDefault();
       var id = $("#uid").val();
+      Swal.fire({
+        title: 'Update Account?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, send it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            type: "PATCH",
+            url: "manageAccount/update/" + id,
+            data: $('#editForm').serialize(),
+            success: function(response) {
+              console.log(response);
+              if (response.errors) {
+                if (response.errors.name) {
+                  $('#uname-error').html(response.errors.name[0]);
+                }
+                if (response.errors.email) {
+                  $('#uemail-error').html(response.errors.email[0]);
+                }
+              }
 
-      $.ajax({
-        type: "PATCH",
-        url: "manageAccount/update/" + id,
-        data: $('#editForm').serialize(),
-        success: function(response) {
-          console.log(response);
-          if (response.errors) {
-            if (response.errors.name) {
-              $('#uname-error').html(response.errors.name[0]);
-            }
-            if (response.errors.email) {
-              $('#uemail-error').html(response.errors.email[0]);
-            }
-          }
-
-          if (response.success) {
-            // Swal.fire({
-            //   title: 'Do you want to save the changes?',
-            //   showDenyButton: true,
-            //   showCancelButton: true,
-            //   confirmButtonText: 'Yes!',
-            //   denyButtonText: `Don't!`,
-            // }).then((result) => {
-            //   if (result.value === true) {
-            $('#userEditModal').modal('hide');
-            //alert("data updated");
-            Swal.fire({
+              if (response.success) {
+                // Swal.fire({
+                //   title: 'Do you want to save the changes?',
+                //   showDenyButton: true,
+                //   showCancelButton: true,
+                //   confirmButtonText: 'Yes!',
+                //   denyButtonText: `Don't!`,
+                // }).then((result) => {
+                //   if (result.value === true) {
+                $('#userEditModal').modal('hide');
+                //alert("data updated");
+                Swal.fire({
                   icon: 'success',
                   title: 'Data Have been updated!',
                   showConfirmButton: false,
@@ -117,16 +176,20 @@
                 setTimeout(function() {
                   location.reload();
                 }, 3000);
-
               }
-        //     });
-
-        //   } else{
-
-        //   }
+            },
+            error: function(xhr, status, error) {
+          console.log(xhr.responseJSON.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Cant Deactivate Administrator',
+          })
         }
-      })
-          
+          });
+        }
+      });
     });
+
   });
 </script>

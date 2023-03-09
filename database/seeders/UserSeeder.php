@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -17,11 +18,13 @@ class UserSeeder extends Seeder
 
         $user->name = 'Administrator';
         $user->email = 'admin@admin';
-		$user->picture = '';
+        $user->picture = '';
+        $user->isActive = '1';
+        $user->position = 'Administrator';
         $user->password = bcrypt('password');
         //$user->remember_token = str_random(10);
         $user->save();
-        
+
         $user->attachRole('Administrator');
     }
 }

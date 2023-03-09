@@ -80,8 +80,11 @@ body {
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
   text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
-  -webkit-text-size-adjust: 100%;
+  /* background-color: var(--bs-body-bg);
+   */
+  background-image: linear-gradient(to bottom right, #043927, #ffff5a);
+   background-size: 400% 400%;
+   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -4031,6 +4034,9 @@ textarea.form-control-lg {
   justify-content: space-between;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  /* background-color: #018749; */
+  background-image: linear-gradient(to bottom right, #043927);
+
 }
 .navbar > .container,
 .navbar > .container-fluid,

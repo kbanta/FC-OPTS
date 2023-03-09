@@ -5,7 +5,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 id="exampleModalLabel" class="modal-title">Edit Profile</h5>
-        <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+        <button type="button" data-dismiss="modal" aria-label="Close" class="close" id="closeButton"><span aria-hidden="true">×</span></button>
       </div>
       <div class="modal-body">
         <form id="update_ProfileForm">
@@ -16,56 +16,56 @@
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <h6 class="mb-2 text-primary">Personal Details</h6>
               </div>
-              <input type="hidden" class="form-control" id="profile_id" name="profile_id" value="{{Auth::user()->id}}">
+              <input autocomplete='off' type="hidden" class="form-control" id="profile_id" name="profile_id" value="{{Auth::user()->id}}">
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
-                  <label for="up_fname">First Name</label>
-                  <input type="text" class="form-control" name="up_fname" id="up_fname" value="{{Auth::user()->name}}">
+                  <label for="fname">First Name</label>
+                  <input autocomplete='off' type="text" class="form-control" name="fname" id="fname" value="{{Auth::user()->name}}">
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
-                    <strong id="up_fname-error"></strong>
+                    <strong id="fname-error"></strong>
                   </span>
                 </div>
               </div>
               <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
                 <div class="form-group">
-                  <label for="up_mname">Middle Name</label>
+                  <label for="mname">Middle Name</label>
                   @if(empty($userr->mname))
-                  <input type="text" class="form-control" name="up_mname" id="up_mname" placeholder="--">
+                  <input autocomplete='off' type="text" class="form-control" name="mname" id="mname" placeholder="--">
                   @else
-                  <input type="text" class="form-control" name="up_mname" id="up_mname" value="{{$userr->mname}}">
+                  <input autocomplete='off' type="text" class="form-control" name="mname" id="mname" value="{{$userr->mname}}">
                   @endif
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
-                    <strong id="up_mname-error"></strong>
+                    <strong id="mname-error"></strong>
                   </span>
                 </div>
               </div>
               <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
                 <div class="form-group">
-                  <label for="up_lname">Last Name</label>
+                  <label for="lname">Last Name</label>
                   @if(empty($userr->lname))
-                  <input type="text" class="form-control" name="up_lname" id="up_lname" placeholder="--">
+                  <input autocomplete='off' type="text" class="form-control" name="lname" id="lname" placeholder="--">
                   @else
-                  <input type="text" class="form-control" name="up_lname" id="up_lname" value="{{$userr->lname}}">
+                  <input autocomplete='off' type="text" class="form-control" name="lname" id="lname" value="{{$userr->lname}}">
                   @endif
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
-                    <strong id="up_lname-error"></strong>
+                    <strong id="lname-error"></strong>
                   </span>
                 </div>
               </div>
               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
                 <div class="form-group">
-                  <label for="up_sex">Sex</label>
+                  <label for="sex">Sex</label>
                   @if(empty($userr->sex))
-                  <select name="up_sex" id="up_sex" class="form-control">
+                  <select name="sex" id="sex" class="form-control">
                     <option value="" disabled selected hidden>Select Sex</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
                   @else
-                  <select name="up_sex" id="up_sex" class="form-control">
+                  <select name="sex" id="sex" class="form-control">
                     <option value="{{$userr->sex}}" hidden>{{$userr->sex}}</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -74,28 +74,38 @@
                   @endif
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
-                    <strong id="up_sex-error"></strong>
+                    <strong id="sex-error"></strong>
                   </span>
                 </div>
               </div>
               <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12">
                 <div class="form-group">
-                  <label for="up_contact_no">Contact Number</label>
+                  <label for="contact_no">Contact Number</label>
                   @if(empty($userr->contact_no))
-                  <input type="text" class="form-control" name="up_contact_no" id="up_contact_no" placeholder="--">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">+63</span>
+                    </div>
+                    <input type="tel" class="form-control" name="contact_no" id="contact_no" placeholder="--">
+                  </div>
                   @else
-                  <input type="text" class="form-control" name="up_contact_no" id="up_contact_no" value="{{$userr->contact_no}}">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">+63</span>
+                    </div>
+                    <input autocomplete='off' type="text" class="form-control" name="contact_no" id="contact_no" value="{{$userr->contact_no}}">
+                  </div>
                   @endif
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
-                    <strong id="up_contact_no-error"></strong>
+                    <strong id="contact_no-error"></strong>
                   </span>
                 </div>
               </div>
               <!-- <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12">
                 <div class="form-group">
-                  <label for="up_email">Email</label>
-                  <input type="email" class="form-control" name="up_email" id="up_email" value="{{Auth::user()->email}}">
+                  <label for="email">Email</label>
+                  <input autocomplete='off' type="email" class="form-control" name="email" id="email" value="{{Auth::user()->email}}">
                 </div>
               </div> -->
             </div>
@@ -105,71 +115,71 @@
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
-                  <label for="up_barangay">Barangay</label>
+                  <label for="barangay">Barangay</label>
                   @if(empty($userr->barangay))
-                  <input type="text" class="form-control" name="up_barangay" id="up_barangay" placeholder="--">
+                  <input autocomplete='off' type="text" class="form-control" name="barangay" id="barangay" placeholder="--">
                   @else
-                  <input type="text" class="form-control" name="up_barangay" id="up_barangay" value="{{$userr->barangay}}">
+                  <input autocomplete='off' type="text" class="form-control" name="barangay" id="barangay" value="{{$userr->barangay}}">
                   @endif
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
-                    <strong id="up_barangay-error"></strong>
+                    <strong id="barangay-error"></strong>
                   </span>
                 </div>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
-                  <label for="up_municipality">Municipality</label>
+                  <label for="municipality">Municipality</label>
                   @if(empty($userr->municipality))
-                  <input type="text" class="form-control" name="up_municipality" id="up_municipality" placeholder="--">
+                  <input autocomplete='off' type="text" class="form-control" name="municipality" id="municipality" placeholder="--">
                   @else
-                  <input type="text" class="form-control" name="up_municipality" id="up_municipality" value="{{$userr->municipality}}">
+                  <input autocomplete='off' type="text" class="form-control" name="municipality" id="municipality" value="{{$userr->municipality}}">
                   @endif
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
-                    <strong id="up_municipality-error"></strong>
+                    <strong id="municipality-error"></strong>
                   </span>
                 </div>
               </div>
               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
                 <div class="form-group">
-                  <label for="up_city">City</label>
+                  <label for="city">City</label>
                   @if(empty($userr->city))
-                  <input type="text" class="form-control" name="up_city" id="up_city" placeholder="--">
+                  <input autocomplete='off' type="text" class="form-control" name="city" id="city" placeholder="--">
                   @else
-                  <input type="text" class="form-control" name="up_city" id="up_city" value="{{$userr->city}}">
+                  <input autocomplete='off' type="text" class="form-control" name="city" id="city" value="{{$userr->city}}">
                   @endif
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
-                    <strong id="up_city-error"></strong>
+                    <strong id="city-error"></strong>
                   </span>
                 </div>
               </div>
               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
                 <div class="form-group">
-                  <label for="up_province">Province</label>
+                  <label for="province">Province</label>
                   @if(empty($userr->province))
-                  <input type="text" class="form-control" name="up_province" id="up_province" placeholder="--">
+                  <input autocomplete='off' type="text" class="form-control" name="province" id="province" placeholder="--">
                   @else
-                  <input type="text" class="form-control" name="up_province" id="up_province" value="{{$userr->province}}">
+                  <input autocomplete='off' type="text" class="form-control" name="province" id="province" value="{{$userr->province}}">
                   @endif
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
-                    <strong id="up_province-error"></strong>
+                    <strong id="province-error"></strong>
                   </span>
                 </div>
               </div>
               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
                 <div class="form-group">
-                  <label for="up_zipcode">Zip Code</label>
+                  <label for="zipcode">Zip Code</label>
                   @if(empty($userr->zipcode))
-                  <input type="text" class="form-control" name="up_zipcode" id="up_zipcode" placeholder="--">
+                  <input autocomplete='off' type="number" class="form-control" name="zipcode" id="zipcode" placeholder="--">
                   @else
-                  <input type="text" class="form-control" name="up_zipcode" id="up_zipcode" value="{{$userr->zipcode}}">
+                  <input autocomplete='off' type="number" class="form-control" name="zipcode" id="zipcode" value="{{$userr->zipcode}}">
                   @endif
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
-                    <strong id="up_zipcode-error"></strong>
+                    <strong id="zipcode-error"></strong>
                   </span>
                 </div>
               </div>
@@ -178,49 +188,23 @@
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <h6 class="mt-3 mb-2 text-primary">Account</h6>
               </div>
-              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              @if(Auth::user()->hasRole('Administrator'))
+              <div class="col-xl-12 col-lg-12 col-md-4 col-sm-4 col-12">
                 <div class="form-group">
-                  <label for="Dept_name">Department</label>
-                  <label>Department</label>
-                  @if(empty($userr->Dept_name))
-                  <select name="up_department_id" id="up_department_id" class="form-control">
-                    <option value="" disabled selected hidden>Select Department</option>
-                    @foreach($department as $departments)
-                    <option value="{{$departments->id}}">{{$departments->Dept_name}}</option>
+                  <label for="email">Departments</label>
+                  <select name="department_id" id="department_id" class="form-control">
+                    @foreach($department as $dept)
+                    <option value="{{$dept->id}}">{{$dept->Dept_name}}</option>
                     @endforeach
                   </select>
-                  @else
-                  <select name="up_department_id" id="up_department_id" class="form-control">
-                    <option value="{{$userr->id}}" hidden>{{$userr->Dept_name}}</option>
-                    @foreach($department as $departments)
-                    <option value="{{$departments->id}}">{{$departments->Dept_name}}</option>
-                    @endforeach
-                  </select>
-                  @endif
-                  <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                  <span class="text-danger">
-                    <strong id="Dept_name-error"></strong>
-                  </span>
                 </div>
               </div>
-              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                <div class="form-group">
-                  <label for="position">Position</label>
-                  @if(empty($userr->position))
-                  <input type="text" class="form-control" name="up_position" id="up_position" value="--">
-                  @else
-                  <input type="text" class="form-control" name="up_position" id="up_position" value="{{$userr->position}}">
-                  @endif
-                  <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                  <span class="text-danger">
-                    <strong id="up_position-error"></strong>
-                  </span>
-                </div>
-              </div>
-              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+              @else
+              @endif
+              <div class="col-xl-12 col-lg-12 col-md-4 col-sm-4 col-12">
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control" name="email" id="email" value="{{Auth::user()->email}}">
+                  <input autocomplete='off' type="email" class="form-control" name="email" id="email" value="{{Auth::user()->email}}">
                   <span class="glyphicon glyphicon-user form-control-feedback"></span>
                   <span class="text-danger">
                     <strong id="email-error"></strong>
@@ -249,8 +233,8 @@
       // var fname = $('#fname').val();
       // var mname = $('#mname').val();
       $('#updateProfileModal').modal('show');
-      // $('#up_fname').val(fname);
-      // $('#up_mname').val(mname);
+      // $('#fname').val(fname);
+      // $('#mname').val(mname);
 
     });
   });
@@ -261,8 +245,18 @@
     $('#update_ProfileForm').on('submit', function(e) {
 
       e.preventDefault();
-      var id = $("#profile_id").val();
-      
+      Swal.fire({
+        title: 'Update Profile?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, send it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var id = $("#profile_id").val();
+
           //$('#logout-form').submit() // this submits the form 
           $.ajax({
             type: "PATCH",
@@ -271,61 +265,64 @@
             success: function(response) {
               console.log(response);
               if (response.errors) {
-                if (response.errors.up_fname) {
-                  $('#up_fname-error').html(response.errors.up_fname[0]);
+                if (response.errors.fname) {
+                  $('#fname-error').html(response.errors.fname[0]);
                 }
-                if (response.errors.up_mname) {
-                  $('#up_mname-error').html(response.errors.up_mname[0]);
+                if (response.errors.mname) {
+                  $('#mname-error').html(response.errors.mname[0]);
                 }
-                if (response.errors.up_lname) {
-                  $('#up_lname-error').html(response.errors.up_lname[0]);
+                if (response.errors.lname) {
+                  $('#lname-error').html(response.errors.lname[0]);
                 }
-                if (response.errors.up_sex) {
-                  $('#up_sex-error').html(response.errors.up_sex[0]);
+                if (response.errors.sex) {
+                  $('#sex-error').html(response.errors.sex[0]);
                 }
-                if (response.errors.up_contact_no) {
-                  $('#up_contact_no-error').html(response.errors.up_contact_no[0]);
+                if (response.errors.contact_no) {
+                  $('#contact_no-error').html(response.errors.contact_no[0]);
                 }
-                if (response.errors.up_barangay) {
-                  $('#up_barangay-error').html(response.errors.up_barangay[0]);
+                if (response.errors.barangay) {
+                  $('#barangay-error').html(response.errors.barangay[0]);
                 }
-                if (response.errors.up_municipality) {
-                  $('#up_municipality-error').html(response.errors.up_municipality[0]);
+                if (response.errors.municipality) {
+                  $('#municipality-error').html(response.errors.municipality[0]);
                 }
-                if (response.errors.up_city) {
-                  $('#up_city-error').html(response.errors.up_city[0]);
+                if (response.errors.city) {
+                  $('#city-error').html(response.errors.city[0]);
                 }
-                if (response.errors.up_province) {
-                  $('#up_province-error').html(response.errors.up_province[0]);
+                if (response.errors.province) {
+                  $('#province-error').html(response.errors.province[0]);
                 }
-                if (response.errors.up_zipcode) {
-                  $('#up_zipcode-error').html(response.errors.up_zipcode[0]);
+                if (response.errors.zipcode) {
+                  $('#zipcode-error').html(response.errors.zipcode[0]);
                 }
-                if (response.errors.up_position) {
-                  $('#up_position-error').html(response.errors.up_position[0]);
+                if (response.errors.position) {
+                  $('#position-error').html(response.errors.position[0]);
                 }
-                if (response.errors.up_department_id) {
-                  $('#up_department_id-error').html(response.errors.up_department_id[0]);
+                if (response.errors.department_id) {
+                  $('#department_id-error').html(response.errors.department_id[0]);
                 }
                 if (response.errors.email) {
                   $('#email-error').html(response.errors.email[0]);
                 }
               }
-              if(response.success){
-              $('#updateProfileModal').modal('hide');
-              //alert("data updated");
-              Swal.fire({
-                icon: 'success',
-                title: 'Data Have been updated!',
-                showConfirmButton: false,
-                timer: 3500
-              });
-              setTimeout(function() {
-                location.reload();
-              }, 3000);
-            }
-            }
+              if (response.success) {
+                $('#updateProfileModal').modal('hide');
+                //alert("data updated");
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Data Have been updated!',
+                  showConfirmButton: false,
+                  timer: 3500
+                });
+                setTimeout(function() {
+                  location.reload();
+                }, 3000);
+              }
+            },
           });
+        }
+      });
     });
+
   });
 </script>

@@ -16,12 +16,15 @@ class CreatePurchaseRequestItemsTable extends Migration
         Schema::create('purchase_request_items', function (Blueprint $table) {
             $table->id('id');
             $table->string('pr_no');
-            $table->string('beggining');
-            $table->string('ending');
+            $table->string('beggining')->nullable();
+            $table->string('ending')->nullable();
             $table->string('unit');
             $table->string('quantity');
             $table->string('item_desc');
-            $table->foreignId('item_id')->references('id')->on('items')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('item_id')->nullable();
+            $table->integer('checkitemby')->nullable();
+            $table->integer('sel')->nullable();
+            $table->integer('chk_item')->nullable();
             $table->timestamps();
         });
     }

@@ -1,25 +1,18 @@
 <script type="text/javascript">
   $().ready(function() {
-    $('.delete_supplierbtn').on('click', function(e) {
-      $tr = $(this).closest('tr');
-
-      var data = $tr.children("td").map(function() {
-        return $(this).text();
-      }).get();
-
-      console.log(data);
-
-      $('#delete_supplier_id').val(data[0]);
+    $('body').on('click', '.delete_supplierbtn', function(e) {
+      var id = $(this).data("id");
       e.preventDefault();
-      var id = $("#delete_supplier_id").val();
-      //alert(id);
+      // alert(id);
 
       Swal.fire({
-        title: 'Do you want to save the changes?',
-        showDenyButton: true,
+        title: 'Delete Supplier?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes',
-        denyButtonText: `Don't `,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, send it!'
       }).then((result) => {
         if (result.value === true) {
           //$('#logout-form').submit() // this submits the form 

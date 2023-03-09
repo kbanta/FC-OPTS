@@ -13,7 +13,7 @@
                         <div class="row d-flex">
                             <div class="row">
                                 <div class="col-12 col-sm-auto mb-3">
-                                    <div class="mx-auto" style="width: 140px;">
+                                    <div class="mx-auto" style="width: 100px;">
                                         <div class="d-flex justify-content-center align-items-center rounded">
                                             <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;"> <img src="{{ asset('dist/img/forbeslogo.png')}}" alt="person" class="img-fluid "> </span>
                                         </div>
@@ -21,9 +21,8 @@
                                 </div>
                                 <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                                     <div class="text-center text-sm-left mb-2 mb-sm-0">
-                                        <br>
                                         <h4 class="pt-sm-2 pb-0 mb-0 text-nowrap">Forbes College Inc.</h4>
-                                        <p class="mb-0">E. Aquende Bldg. III Rizal cor. Elizondo Sts. Legazpi City</p>
+                                        <p class="mb-0">E. Aquende Bldg. III Rizal Corner Elizondo St. Legazpi City</p>
                                         <div class="text-muted"><small>4500, Philippines</small></div>
                                     </div>
                                 </div>
@@ -40,7 +39,7 @@
                                     <span>Error!! Update Profile First!</span>
                                 </div>
                                 @else
-                                <input type="checkbox" class="custom-control-input" id="building" name="building" value="{{$user->id}}" checked>
+                                <input type="checkbox" class="custom-control-input" id="building" name="building" value="{{$user->id}}" checked="true">
                                 <label class="custom-control-label" for="building">{{$user->Building_name}}</label>
                                 @endif
                             </div>
@@ -71,13 +70,17 @@
                                                 <strong id="type_of_req-error"></strong>
                                             </span>
                                         </td>
-                                        <td><small>PR number:</small>
+                                        <td style="display:none;"><small>PR number:</small>
                                             <input type="hidden" class="form-group" id="pr_no" name="pr_no" value="{{$generatePR}}">
                                             <p>{{$generatePR}}</p>
                                         </td>
+                                        <td>
+                                            <small>Date:</small><br>
+                                            <span>{{ now(); }}</span>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <th colspan="2">
+                                        <th colspan="3">
                                             <p>Requesting Department:</p>
                                             @if(empty($userr->id))
                                             <input type="hidden" class="form-group" id="department" name="department">
@@ -88,16 +91,16 @@
                                             @endif
 
                                         </th>
-                                        <td>
+                                        <!-- <td>
                                             <small>Date:</small><br>
                                             <span>{{ now(); }}</span>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     <tr>
                                         <th colspan="4">
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea2">Purpose of Requisition</label>
-                                                <textarea class="form-control rounded-0" id="purpose" name="purpose" rows="3"></textarea>
+                                                <textarea class="form-control rounded-0" id="purpose" name="purpose" rows="3" style="overflow:auto;resize:none"></textarea>
                                                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                                                 <span class="text-danger">
                                                     <strong id="purpose-error"></strong>
@@ -156,12 +159,6 @@
                                     </th>
                                 </tr>
                                 <tbody>
-                                    <div style="display:none">
-                                        @foreach($get_item as $items)
-                                        <option class="items" name="items[]" id="items[]" value="{{$items->id}}">{{$items->item_desc}}</td>
-                                        <option class="item_desc" name="items[]" id="items[]" value="{{$items->item_desc}}">{{$items->item_desc}}</td>
-                                            @endforeach
-                                    </div>
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -169,42 +166,29 @@
                                             <p>*****nothing follows*****</p>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td class="request_bottom" colspan="5">
                                             <p>Last request:</p>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tfoot>
-
                             </table>
-
                         </section>
                         <div class="modal-footer">
                             <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                            <button type="submit" class="btn btn-primary" id="submit-btn">Submit Request</button>
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
     <script type="text/javascript">
-        // alert(addoption);  
-
-
+        // alert(data);
         const x = () => {
             var table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
             var row = table.insertRow();
-            // var taskArray = new Array();
-            // $('.items').each(function() {
-            //     taskArray.push($(this).val());
-            // });
-            // var taskArrayy = new Array();
-            // $('.item_desc').each(function() {
-            //     taskArrayy.push($(this).val());
-            // });
-            //  alert(taskArrayy);  
+
             function addoption() {
                 $('#addoption').append('<option value="${taskArray}">${taskArrayy}</option>');
             }
@@ -216,12 +200,13 @@
             let cell5 = row.insertCell(4);
             let cell6 = row.insertCell(5);
 
-            cell1.innerHTML = "<p><input class='form-control request_table' type='text'  name='beggining[]' required></p>";
-            cell2.innerHTML = "<p><input class='form-control request_table' type='text'  name='ending[]' required></p>";
-            cell3.innerHTML = "<p><input class='form-control request_table' type='number' min='1' name='quantity[]'required></p>";
-            cell4.innerHTML = "<p><input class='form-control request_table' type='text'  name='unit[]' required></p>";
-            cell5.innerHTML = "<p><input class='form-control request_table' type='text'  name='item_desc[]' required></p>";
-            // cell5.innerHTML = '<p><select id="addoption" name="item_unit[]" class="form-control"><option value="taskArrayy">taskArrayy</option></select></p>';
+            cell1.innerHTML = "<p><input class='form-control request_table' type='text' name='beggining[]'></p>";
+            cell2.innerHTML = "<p><input class='form-control request_table' type='text' name='ending[]'></p>";
+            cell3.innerHTML = "<p><input class='form-control request_table' type='number' min='1' name='quantity[]' required></p>";
+            cell4.innerHTML = "<p><input class='form-control request_table' type='text' name='unit[]' required></p>";
+            // cell5.innerHTML = "<p><input class='form-control request_table' type='text' name='item_desc[]' required></p>";
+            // cell5.innerHTML = "<p><input class='form-control request_table' type='search' name='item_desc[]' @foreach($items as $item) placeholder='{{$item['item_desc']}}' @endforeach required></p>";
+            cell5.innerHTML = "<p><input class='form-control item_desc' list='item' type='search' name='item_desc[]' required><datalist id='item'>@foreach($items as $item)<option value='{{$item['item_desc']}}'>@endforeach</datalist></p>";
             cell6.innerHTML = "<button type='button' class='btn btn-danger btn-block btn-sm' onclick='y()'><i class='fa fa-trash'></i>Remove</button>";
         }
 
@@ -235,6 +220,7 @@
         $().ready(function() {
             $('#addRequisitionForm').on('submit', function(e) {
                 e.preventDefault();
+                document.getElementById("submit-btn").disabled = true;
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -278,7 +264,7 @@
                                     $('#addRequisitionForm').modal('hide');
                                     //alert("data updated");
                                     Swal.fire({
-                                        position: 'top-end',
+                                        position: 'center',
                                         icon: 'success',
                                         title: 'Your work has been saved',
                                         showConfirmButton: false,
@@ -296,3 +282,8 @@
 
         });
     </script>
+    <style>
+        .item_desc {
+            text-transform: capitalize;
+        }
+    </style>

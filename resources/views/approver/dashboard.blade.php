@@ -6,6 +6,19 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">Dashboard</h1>
+                @if(empty($userr->zipcode))
+                @include('manage_profile.update_profile')
+                <script>
+                    $(document).ready(function() {
+                        $('#updateProfileModal').modal('show');
+                        var closeButton = document.getElementById("closeButton");
+
+                        // Disable the button
+                        closeButton.disabled = true;
+                    });
+                </script>
+                @else
+                @endif
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -17,87 +30,263 @@
     </div><!-- /.container-fluid -->
 </div>
 <div class="row">
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box">
-            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
+    @if(Auth::user()->position == 'ASSD Manager')
+    <div class="col-12 col-sm-6 col-md-4">
+        @else
+        <div class="col-12 col-sm-6 col-md-4">
+            @endif
+            <a href="{{ route('app_purchase_request') }}">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-pencil-alt"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">New PurchaseRequest!</span>
-                <span class="info-box-number">
-                    {{$pr}}
-                </span>
-            </div>
-            <!-- /.info-box-content -->
+                    <div class="info-box-content">
+                        <span class="info-box-text">My Requisition</span>
+                        <span class="info-box-number">
+                            <h3>
+                                <i>
+                                    <span>
+                                        {{$my_pr}}
+                                    </span>
+                                </i>
+                            </h3>
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </a>
+            <!-- /.info-box -->
         </div>
-        <!-- /.info-box -->
-    </div>
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box">
-            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
+        @if(Auth::user()->position == 'ASSD Manager')
+        <div class="col-12 col-sm-6 col-md-4">
+            @else
+            <div class="col-12 col-sm-6 col-md-4">
+                @endif
+                <a href="{{ route('app_purchase_order') }}">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">PR for Verification!</span>
-                <span class="info-box-number">
-                    {{$pr_verification}}
-                </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">My Purchase Order</span>
+                            <span class="info-box-number">
+                                <h3>
+                                    <i>
+                                        <span>
+                                            {{$purchaseorder}}
+                                        </span>
+                                    </i>
+                                </h3>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                </a>
+                <!-- /.info-box -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <div class="clearfix hidden-md-up"></div>
+            @if(Auth::user()->position == 'ASSD Manager')
+            <div class="col-12 col-sm-6 col-md-4">
+                @else
+                <div class="col-12 col-sm-6 col-md-4">
+                    @endif
+                    <a href="{{ route('app_to_received') }}">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-calendar-alt"></i></span>
 
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cart-plus"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">To Receive</span>
+                                <span class="info-box-number">
+                                    <h3>
+                                        <i>
+                                            <span>
+                                                {{$toreceived}}
+                                            </span>
+                                        </i>
+                                    </h3>
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                @if(Auth::user()->position == 'ASSD Manager')
 
-            <div class="info-box-content">
-                <span class="info-box-text">No. Purchase Order(P.O.)</span>
-                <span class="info-box-number">----</span>
+                @else
+                @endif
             </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-skull-crossbones"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">Number of Items</span>
-                <span class="info-box-number">{{$item}}</span>
+            <div class="row">
+                @if(Auth::user()->position == 'ASSD Manager')
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{ route('new_pr') }}">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-envelope"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">New PR!</span>
+                                <span class="info-box-number">
+                                    <i>
+                                        @if(!empty($newpr))
+                                        <span class="badge badge-danger">
+                                            {{$newpr}}
+                                        </span>
+                                        @else
+                                        <span>
+                                            {{$newpr}}
+                                        </span>
+                                        @endif
+                                    </i>
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{ route('pr_for_verification') }}">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-search"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">For Verification!</span>
+                                <span class="info-box-number">
+                                    @if(!empty($verificationpr))
+                                    <span class="badge badge-danger">
+                                        <i>
+                                            {{$verificationpr}}
+                                        </i>
+                                    </span>
+                                    @else
+                                    <span>
+                                        {{$verificationpr}}
+                                    </span>
+                                    @endif
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{ route('po_for_approval') }}">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-check"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">PO for Approval!</span>
+                                <span class="info-box-number">
+                                    @if(!empty($poforapproval))
+                                    <span class="badge badge-danger">
+                                        <i>
+                                            {{$poforapproval}}
+                                        </i>
+                                    </span>
+                                    @elseif(!empty($poforapproval2))
+                                    <span class="badge badge-danger">
+                                        <i>
+                                            {{$poforapproval2}}
+                                        </i>
+                                    </span>
+                                    @else
+                                    <span>
+                                        {{$poforapproval}}
+                                    </span>
+                                    @endif
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{ route('to_transmit') }}">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-paper-plane"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">To Transmit!</span>
+                                <span class="info-box-number">
+                                    @if(!empty($totransmit))
+                                    <span class="badge badge-danger">
+                                        <i>
+                                            {{$totransmit}}
+                                        </i>
+                                    </span>
+                                    @else
+                                    <span>
+                                        {{$totransmit}}
+                                    </span>
+                                    @endif
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                @else
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{ route('pr_for_approval') }}">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-check"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">PR for Approval!</span>
+                                <span class="info-box-number">
+                                    @if(!empty($prforapproval ))
+                                    <span class="badge badge-danger">
+                                        <i>
+                                            {{$prforapproval}}
+
+                                        </i>
+                                    </span>
+                                    @else
+                                    <span>
+                                        {{$prforapproval}}
+                                    </span>
+                                    @endif
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <a href="{{ route('po_for_approval') }}">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-check"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">PO for Approval!</span>
+                                <span class="info-box-number">
+                                    @if(!empty($poforapproval))
+                                    <span class="badge badge-danger">
+                                        <i>
+                                            {{$poforapproval}}
+                                        </i>
+                                    </span>
+                                    @elseif(!empty($poforapproval2))
+                                    @if(Auth::user()->position == 'ASSD Manager')
+                                    <span class="badge badge-danger">
+                                        @else
+                                        @endif
+                                        <i>
+                                            {{$poforapproval2}}
+                                        </i>
+                                    </span>
+                                    @else
+                                    <span>
+                                        {{$poforapproval}}
+                                    </span>
+                                    @endif
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </a>
+                    <!-- /.info-box -->
+                </div>
+                @endif
             </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-user-secret"></i></span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">Number Supplier</span>
-                <span class="info-box-number">{{$supplier}}</span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-pencil-alt"></i></span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">My Requesition(P.R.)</span>
-                <span class="info-box-number">
-                    {{$my_pr}}
-                </span>
-            </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
-    </div>
-
-    <!-- /.col -->
-</div>
-@endsection
+            @endsection

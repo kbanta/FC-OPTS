@@ -4,7 +4,7 @@
   <div role="document" class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 id="exampleModalLabel" class="modal-title">Edit Account</h5>
+        <h5 id="exampleModalLabel" class="modal-title">Edit Password</h5>
         <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
       </div>
       <div class="modal-body">
@@ -15,6 +15,16 @@
             <div class="row gutters">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <h6 class="mt-3 mb-2 text-primary">Password</h6>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="form-group">
+                  <label for="up_password">Current Password</label>
+                  <input type="password" class="form-control" name="current" id="current">
+                  <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  <span class="text-danger">
+                    <strong id="current-error"></strong>
+                  </span>
+                </div>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="form-group">
@@ -68,38 +78,52 @@
     $('#update_AccountForm').on('submit', function(e) {
 
       e.preventDefault();
-      var id = $("#profile_id").val();
+      Swal.fire({
+        title: 'Update Password?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, send it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          var id = $("#profile_id").val();
 
-      //$('#logout-form').submit() // this submits the form 
-      $.ajax({
-        type: "PATCH",
-        url: "profile/update/password/" + id,
-        data: $('#update_AccountForm').serialize(),
-        success: function(response) {
-          console.log(response);
-          if (response.errors) {
-            if (response.errors.up_password) {
-              $('#up_password-error').html(response.errors.up_password[0]);
-            }
-            if (response.errors.up_confirm_password) {
-              $('#up_confirm_password-error').html(response.errors.up_confirm_password[0]);
-            }
-          }
-          if (response.success) {
-          $('#updateAccountModal').modal('hide');
-          //alert("data updated");
-          Swal.fire({
-            icon: 'success',
-            title: 'Data Have been updated!',
-            showConfirmButton: false,
-            timer: 3500
+          //$('#logout-form').submit() // this submits the form 
+          $.ajax({
+            type: "PATCH",
+            url: "profile/update/password/" + id,
+            data: $('#update_AccountForm').serialize(),
+            success: function(response) {
+              console.log(response);
+              if (response.errors) {
+                if (response.errors.up_password) {
+                  $('#up_password-error').html(response.errors.up_password[0]);
+                }
+                if (response.errors.up_confirm_password) {
+                  $('#up_confirm_password-error').html(response.errors.up_confirm_password[0]);
+                }
+                if (response.errors.current) {
+                  $('#current-error').html(response.errors.current[0]);
+                }
+              }
+              if (response.success) {
+                $('#updateAccountModal').modal('hide');
+                //alert("data updated");
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Data Have been updated!',
+                  showConfirmButton: false,
+                  timer: 3500
+                });
+                $('#logout-form').submit()
+              }
+            },
           });
-          // setTimeout(function() {
-          //   location.reload();
-          // }, 3000);
-        }
         }
       });
     });
+
   });
 </script>

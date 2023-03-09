@@ -21,7 +21,8 @@ class CreatePurchaseRequestsTable extends Migration
             $table->string('remarks');
             $table->foreignId('user_id')->references('id')->on('users')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('department_id')->references('id')->on('departments')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('supp_docs_id')->references('id')->on('support_documents')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('supp_docs_id')->nullable()->references('id')->on('support_documents')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('w_PO')->nullable();
             $table->timestamps();
         });
     }

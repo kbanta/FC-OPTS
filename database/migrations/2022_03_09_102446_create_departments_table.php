@@ -18,8 +18,8 @@ class CreateDepartmentsTable extends Migration
             $table->string('Dept_name');
             //$table->unsignedBigInteger('building_id');
             //$table->foreign('building_id')->references('id')->on('buildings');
-            
             $table->foreignId('building_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->string('is_active');
             $table->timestamps();
         });
     }

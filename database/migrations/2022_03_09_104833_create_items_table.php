@@ -15,11 +15,9 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('item_desc');
-            $table->string('brand');
-            $table->string('unit');
-            $table->float('price');
-            $table->foreignId('supplier_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->string('item_desc')->unique();
+            $table->foreignId('supplier_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->string('isActive')->nullable();
             $table->timestamps();
         });
     }

@@ -6,6 +6,19 @@
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">Dashboard</h1>
+                @if(empty($userr->zipcode))
+                @include('manage_profile.update_profile')
+                <script>
+                    $(document).ready(function() {
+                        $('#updateProfileModal').modal('show');
+                        var closeButton = document.getElementById("closeButton");
+
+                        // Disable the button
+                        closeButton.disabled = true;
+                    });
+                </script>
+                @else
+                @endif
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -17,73 +30,210 @@
     </div><!-- /.container-fluid -->
 </div>
 <div class="row">
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box">
-            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
+    <div class="col-12 col-sm-6 col-md-4">
+        <a href="{{ route('pro_purchase_request') }}">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-pencil-alt"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">PR for Canvass!</span>
-                <span class="info-box-number">
-                    {{$pr}}
-                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">My Requisition</span>
+                    <span class="info-box-number">
+                        <h4>
+                            <i>
+                                <span>
+                                    {{$my_pr}}
+                                </span>
+                            </i>
+                        </h4>
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
+        </a>
         <!-- /.info-box -->
     </div>
-    <div class="clearfix hidden-md-up"></div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <a href="{{ route('pro_purchase_order') }}">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file"></i></span>
 
-    <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cart-plus"></i></span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">No. Purchase Order(P.O.)</span>
-                <span class="info-box-number">----</span>
+                <div class="info-box-content">
+                    <span class="info-box-text">My Purchase Order</span>
+                    <span class="info-box-number">
+                        <h4>
+                            <i>
+                                <span>
+                                    {{$purchaseorder}}
+                                </span>
+                            </i>
+                        </h4>
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
+        </a>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-12 col-sm-6 col-md-4">
+        <a href="{{ route('pro_to_received') }}">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-calendar-alt"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">To Receive</span>
+                    <span class="info-box-number">
+                        <h4>
+                            <i>
+                                <span>
+                                    {{$toreceived}}
+                                </span>
+                            </i>
+                        </h4>
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+        </a>
+        <!-- /.info-box -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-3">
+        <a href="{{ route('pr_for_canvass') }}">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-search"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">PR for Canvass</span>
+                    @if(!empty($canvass_pr))
+                    <span class="info-box-number">
+                        <span class="badge badge-danger">
+                            <i>
+                                {{$canvass_pr}}
+                            </i>
+                        </span>
+                    </span>
+                    @else
+                    <span class="info-box-number">
+                        {{$canvass_pr}}
+                    </span>
+                    @endif
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+        </a>
         <!-- /.info-box -->
     </div>
     <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-skull-crossbones"></i></span>
+        <a href="{{ route('pr_to_po') }}">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">Number of Items</span>
-                <span class="info-box-number">{{$item}}</span>
+                <div class="info-box-content">
+                    <span class="info-box-text">PR to PO</span>
+                    <span class="info-box-number">
+                        @if(!empty($approved_prr))
+                        <span class="badge badge-danger">
+                            <i>
+                                {{$approved_prr}}
+                            </i>
+                        </span>
+                        @else
+                        <span>
+                            {{$approved_prr}}
+                        </span>
+                        @endif
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
+        </a>
+
         <!-- /.info-box -->
     </div>
     <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-user-secret"></i></span>
+        <a href="{{ route('order_po') }}">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">Number Supplier</span>
-                <span class="info-box-number">{{$supplier}}</span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Need to Order PO</span>
+                    <span class="info-box-number">
+                        @if(!empty($approved_po))
+                        <span class="badge badge-danger">
+                            <i>
+                                {{$approved_po}}
+                            </i>
+                        </span>
+                        @else
+                        <span>
+                            {{$approved_po}}
+                        </span>
+                        @endif
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
+        </a>
+
         <!-- /.info-box -->
     </div>
     <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-pencil-alt"></i></span>
+        <a href="{{ route('deliveries') }}">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-truck"></i></span>
 
-            <div class="info-box-content">
-                <span class="info-box-text">My Requesition(P.R.)</span>
-                <span class="info-box-number">
-                    {{$my_pr}}
-                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">To Deliver</span>
+                    <span class="info-box-number">
+                        @if(!empty($delivery))
+                        <span class="badge badge-danger">
+                            <i>
+                                {{$delivery}}
+                            </i>
+                        </span>
+                        @else
+                        <span>
+                            {{$delivery}}
+                        </span>
+                        @endif
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
+        </a>
+
         <!-- /.info-box -->
     </div>
-
     <!-- /.col -->
+</div>
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-3">
+        <a href="{{ route('reported_items') }}">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fa fa-exclamation-triangle"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Reported Items</span>
+                    <span class="info-box-number">
+                        @if(!empty($rc))
+                        <span class="badge badge-danger">
+                            <i>
+                                {{$rc}}
+                            </i>
+                        </span>
+                        @else
+                        <span>
+                            {{$delivery}}
+                        </span>
+                        @endif
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+        </a>
+
+        <!-- /.info-box -->
+    </div>
 </div>
 @endsection

@@ -23,7 +23,7 @@
                                     <div class="text-center text-sm-left mb-2 mb-sm-0">
                                         <br>
                                         <h4 class="pt-sm-2 pb-0 mb-0 text-nowrap">Forbes College Inc.</h4>
-                                        <p class="mb-0">E. Aquende Bldg. III Rizal cor. Elizondo Sts. Legazpi City</p>
+                                        <p class="mb-0">E. Aquende Bldg. III Rizal Corner Elizondo St. Legazpi City</p>
                                         <div class="text-muted"><small>4500, Philippines</small></div>
                                     </div>
                                 </div>
@@ -76,8 +76,8 @@
                                         </th>
                                         <td>
                                             Date:
-                                            @if(!empty($output[0]['created_at']))
-                                            <span>{{$output[0]['created_at']}}</span>
+                                            @if(!empty($outputs[0]['created_at']))
+                                            <span>{{date('Y-m-d H:i:s' ,strtotime($outputs[0]['created_at']))}}</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -86,7 +86,7 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlTextarea2">Purpose of Requisition</label>
                                                 @if(!empty($output[0]['purpose']))
-                                                <textarea class="form-control rounded-0" id="purpose" name="purpose" rows="3">{{$output[0]['purpose']}}</textarea>
+                                                <textarea class="form-control rounded-0" id="purpose" name="purpose" rows="3" style="overflow:auto;resize:none" readonly>{{$output[0]['purpose']}}</textarea>
                                                 @endif
                                             </div>
                                         </th>
@@ -145,7 +145,7 @@
                                         <td class="pr_purpose">{{$outputs['unit']}}</td>
                                         <td class="pr_remark">{{$outputs['quantity']}}</td>
                                         <td class="pr_remark">{{$outputs['item_desc']}}."\n"</td>
-                                        
+
                                         @endforeach
                                         @endif
                                     </tr>
